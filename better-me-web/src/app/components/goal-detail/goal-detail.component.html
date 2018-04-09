@@ -1,0 +1,9 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ goal.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ goal.quantity }} times a {{ goal.timeframeText | lowercase }}</h6>
+    <p class="card-text">{{ goal.description }}</p>
+    <a routerLink="/user/{{ goal.user.id }}" class="card-link">By {{ goal.user.firstname }} {{ goal.user.lastname }}</a>
+    <a href="#" class="card-link">Assign</a>
+  </div>
+</div>

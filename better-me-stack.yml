@@ -1,0 +1,40 @@
+version: "3"
+services:
+  db:
+    image: 'mysql:latest'
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=EeCTQZ8kkh5UsU4T
+      - MYSQL_DATABASE=better-me-db
+    networks:
+      - backend
+
+  api:
+    image: better-me-api:latest
+    ports:
+      - 5000:80
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - db
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  web:
+    image: better-me-web:latest
+    ports:
+      - 80:80
+    networks:
+      - frontend
+    depends_on:
+      - api
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  frontend:
+  backend:
