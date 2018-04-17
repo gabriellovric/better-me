@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{goal.goalId === 0 ? "Create" : "Edit"}} a goal</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="onSubmit()" #goalForm="ngForm" novalidate>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="goal.name" name="name" #name="ngModel" />
+        <div class="valid-feedback" [hidden]="name.valid || name.pristine">
+          Please enter a name for the goal!
+        </div>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="repetitions">Repetitions</label>
+        <input type="number" class="form-control" id="repetitions" required [(ngModel)]="goal.repetitions" name="repetitions" #repetitions="ngModel"
+        />
+        <div class="valid-feedback" [hidden]="repetitions.valid || repetitions.pristine">
+          Please enter a valid amount of repetitions for the goal!
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="timeframe">Timeframe</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">times a</span>
+          </div>
+          <select class="form-control" id="timeframe" required [(ngModel)]="goal.timeframe" name="timeframe" #timeframe="ngModel">
+            <option *ngFor="let key of keys" [value]="key">{{ timeframes[key] | lowercase}}</option>
+          </select>
+        </div>
+        <div class="valid-feedback" [hidden]="timeframe.valid || timeframe.pristine">
+          Please enter a valid timeframe for the goal!
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" rows="5" [(ngModel)]="goal.description" name="description" #description="ngModel"></textarea>
+      <div class="valid-feedback" [hidden]="description.valid || description.pristine">
+        Please enter a valid timeframe for the goal!
+      </div>
+    </div>
+    <!--<div class="form-group">
+      <label for="description">Achievements</label>
+    </div>
+
+
+    <ng-container *ngFor="let achievement of achievements" [achievement]="achievement">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <input type="text" class="form-control" id="name" placeholder="Name" [(ngModel)]="achievement.name" name="name" #name="ngModel"/>
+        </div>
+        <div class="form-group col-md-1">
+          <input type="number" class="form-control" id="achieved" placeholder="Achieved" />
+        </div>
+        <div class="form-group col-md-8">
+          <textarea class="form-control" id="description" rows="1" placeholder="Description"></textarea>
+        </div>
+      </div>
+    </ng-container>-->
+
+    <button type="submit" class="btn btn-primary" [disabled]="!goalForm.form.valid">
+      {{goal.goalId === 0 ? "Create" : "Save"}}
+    </button>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

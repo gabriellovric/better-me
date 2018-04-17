@@ -3,11 +3,11 @@ namespace BetterMeApi.Controllers
 {
     public enum ErrorCode
     {
-        ItemNameAndNotesRequired,
-        ItemIDInUse,
-        RecordNotFound,
+        DataProvidedIsInvalid,
+        ItemAlreadyExists,
+        ItemNotFound,
         CouldNotCreateItem,
         CouldNotUpdateItem,
-        CouldNotDeleteItem
+        CouldNotDeleteItem,
     }
 }

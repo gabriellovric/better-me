@@ -24,32 +24,29 @@ namespace BetterMeApi.Controllers
             _userRepository = userRepository;
         }
         
-        // GET api/values
         [HttpGet]
-        public IActionResult GetByUserId([FromQuery]long? userId)
+        public IActionResult Get([FromQuery]long? userId)
         {
             if (userId != null)
             {
-                return Ok(_goalRepository.All.Where(goal => goal.User.UserId == userId));
+                return Ok(_goalRepository.AllByUser(userId.Value));
             }
 
             return Ok(_goalRepository.All);
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult GetById(long id)
+        public IActionResult Get(long id)
         {
             var goalItem = _goalRepository.Find(id);
             if (goalItem == null)
             {
-                return NotFound("RecordNotFound");
+                return NotFound(ErrorCode.ItemNotFound.ToString());
             }
             
             return Ok(goalItem);
         }
 
-        // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]Goal item)
         {
@@ -57,15 +54,14 @@ namespace BetterMeApi.Controllers
             {
                 if (item == null || !ModelState.IsValid || item.GoalId != 0 || item.User != null)
                 {
-                    return BadRequest(ErrorCode.ItemNameAndNotesRequired.ToString());
+                    return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
-                
 
-                var email = User.FindFirst(ClaimTypes.Email).Value;
-                var userItem = _userRepository.All.Where(user => user.Email == email).SingleOrDefault();
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                var userItem = _userRepository.Find(email);
                 if (userItem == null)
                 {
-                    return BadRequest(ErrorCode.ItemNameAndNotesRequired.ToString());
+                    return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
 
                 item.UserId = userItem.UserId;
@@ -80,7 +76,6 @@ namespace BetterMeApi.Controllers
             return Ok(item);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
         public IActionResult Put([FromBody]Goal item)
         {
@@ -88,14 +83,15 @@ namespace BetterMeApi.Controllers
             {
                 if (item == null || !ModelState.IsValid)
                 {
-                    return BadRequest(ErrorCode.ItemNameAndNotesRequired.ToString());
+                    return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
                 
                 var existingItem = _goalRepository.Find(item.GoalId);
-                if (existingItem == null)
+                if (existingItem == null || existingItem.User.Email != User.FindFirstValue(ClaimTypes.Email))
                 {
-                    return NotFound(ErrorCode.RecordNotFound.ToString());
+                    return NotFound(ErrorCode.ItemNotFound.ToString());
                 }
+
                 _goalRepository.Update(item);
             }
             catch (Exception)
@@ -105,23 +101,24 @@ namespace BetterMeApi.Controllers
             return NoContent();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
             try
             {
                 var item = _goalRepository.Find(id);
-                if (item == null)
+                if (item == null || item.User.Email != User.FindFirstValue(ClaimTypes.Email))
                 {
-                    return NotFound(ErrorCode.RecordNotFound.ToString());
+                    return NotFound(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
+
                 _goalRepository.Delete(id);
             }
             catch (Exception)
             {
                 return BadRequest(ErrorCode.CouldNotDeleteItem.ToString());
             }
+
             return NoContent();
         }
     }

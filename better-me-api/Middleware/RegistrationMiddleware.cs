@@ -21,7 +21,7 @@ public class RegistrationMiddleware
     {
         if (context.User.Identity.IsAuthenticated)
         {
-            var email = context.User.FindFirst(ClaimTypes.Email).Value;
+            var email = context.User.FindFirstValue(ClaimTypes.Email);
             var registeredUsers = context.RequestServices.GetService<SortedSet<string>>();
 
             if (!registeredUsers.Contains(email))
@@ -30,8 +30,8 @@ public class RegistrationMiddleware
 
                 if (!userRepository.DoesItemExist(email))
                 {
-                    var firstname = context.User.FindFirst(ClaimTypes.GivenName).Value;
-                    var lastname = context.User.FindFirst(ClaimTypes.Surname).Value;
+                    var firstname = context.User.FindFirstValue(ClaimTypes.GivenName);
+                    var lastname = context.User.FindFirstValue(ClaimTypes.Surname);
 
                     userRepository.Insert(new User
                     {

@@ -1,54 +1,5 @@
-<h1>Wellcome to BetterMe {{ user.given_name }}</h1>
+<h1>Wellcome to BetterMe {{ user.firstname }}</h1>
 
 <div class="row justify-content-center">
-    <div class="jumbotron col-md-8">
-        <h1>Create a Goal</h1>
-        <hr class="my-4"/>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" />
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" class="form-control" id="quantity" />
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="timeframe">Timeframe</label>
-                    
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">times a</span>
-                        </div>
-                        <select class="form-control" id="timeframe">
-                            <option>Hour</option>
-                            <option>Day</option>
-                            <option>Week</option>
-                            <option>Month</option>
-                            <option>Year</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="5"></textarea>
-            </div>
-        </form>
-        
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-8">
-                    <input type="text" class="form-control" id="name" placeholder="Name" />
-                </div>
-                <div class="form-group col-md-4">
-                    <input type="number" class="form-control" id="achieved" placeholder="Achieved" />
-                </div>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="description" rows="2" placeholder="Description"></textarea>
-            </div>
-        </form>
-    </div>
+    <button class="btn btn-lg btn-outline-primary" (click)="openGoalForm()">Create Goal</button>
 </div>

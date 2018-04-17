@@ -8,15 +8,25 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/explore">Explore</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Stats</a>
-      </li>
+      <ng-container *ngIf="isAuthenticated">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/explore">Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Stats</a>
+        </li>
+      </ng-container>
     </ul>
+    <form *ngIf="isAuthenticated; then signOutBtn; else signInBtn" class="form-inline mt-2 mt-md-0">
+    </form>
+    <ng-template #signOutBtn>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="signOut()">SignOut</button>
+    </ng-template>
+    <ng-template #signInBtn>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="signIn()">SignIn</button>
+    </ng-template>
   </div>
 </nav>

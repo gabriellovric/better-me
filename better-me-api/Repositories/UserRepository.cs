@@ -5,7 +5,7 @@ using BetterMeApi.Models;
 
 namespace BetterMeApi.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IRepository<User>
     {
         private readonly BetterMeContext _context;
 
@@ -16,22 +16,33 @@ namespace BetterMeApi.Repositories
 
         public IEnumerable<User> All
         {
-            get { return _context.Users.Include(user => user.Goals); }
+            get { return _context.Users; }
         }
 
         public bool DoesItemExist(long id)
         {
-            return _context.Users.Any(item => item.UserId == id);
+            return All.Any(item => item.UserId == id);
         }
 
         public bool DoesItemExist(string email)
         {
-            return _context.Users.Any(item => item.Email == email);
+            return All.Any(item => item.Email == email);
         }
 
         public User Find(long id)
         {
-            return _context.Users.FirstOrDefault(item => item.UserId == id);
+            return All.FirstOrDefault(item => item.UserId == id);
+        }
+        
+        public IEnumerable<User> Query(string email)
+        {
+            return All.Where(item => item.Email == email);
+        }
+
+
+        public User Find(string email)
+        {
+            return this.Query(email).FirstOrDefault();
         }
 
         public void Insert(User item)
@@ -42,12 +53,7 @@ namespace BetterMeApi.Repositories
 
         public void Update(User item)
         {
-            var userItem = this.Find(item.UserId);
-            userItem.Email = item.Email;
-            userItem.Firstname = item.Firstname;
-            userItem.Lastname = item.Lastname;
-            
-            _context.Users.Update(userItem);
+            _context.Users.Update(item);
             _context.SaveChanges();
         }
 

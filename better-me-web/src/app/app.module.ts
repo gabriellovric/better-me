@@ -32,6 +32,9 @@ import { GoalService } from './services/api/goal.service';
 import { AchievementService } from './services/api/achievement.service';
 import { AssignmentService } from './services/api/assignment.service';
 import { ProgressService } from './services/api/progress.service';
+import { GoalFormComponent } from './components/forms/goal-form/goal-form.component';
+import { FormsModule } from '@angular/forms';
+import { UserStorageService } from './services/user-storage.service';
 
 @NgModule({
   declarations: [
@@ -46,9 +49,11 @@ import { ProgressService } from './services/api/progress.service';
     LoginComponent,
     AuthComponent,
     GoalDetailComponent,
+    GoalFormComponent,
   ],
   imports: [
     HttpModule,
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
@@ -57,12 +62,16 @@ import { ProgressService } from './services/api/progress.service';
   providers: [
     GuestGuardService,
     AuthGuardService,
-    AuthService,
+    UserStorageService,
     UserService,
+    AuthService,
     GoalService,
     AchievementService,
     AssignmentService,
     ProgressService
+  ],
+  entryComponents: [
+    GoalFormComponent,
   ],
   bootstrap: [AppComponent]
 })

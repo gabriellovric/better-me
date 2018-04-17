@@ -25,16 +25,14 @@ namespace BetterMeApi.Models
 
         public Timeframe Timeframe { get; set; }
 
-        public string TimeframeText { get { return Timeframe.ToString(); } }
+        public int Repetitions { get; set; }
 
-        public int Quantity { get; set; }
-
-        
         public long UserId { get; set; }
+        
         public User User { get; set; }
 
-        public List<Achievement> Achievements { get; set; }
+        //public List<Achievement> Achievements { get; set; }
 
-        public List<Assignment> Assignments { get; set; }
+        //public List<Assignment> Assignments { get; set; }
     }
 }

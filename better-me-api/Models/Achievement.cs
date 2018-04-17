@@ -5,10 +5,16 @@ namespace BetterMeApi.Models
 {
     public class Achievement
     {
-        public long id { get; set; }
-        public Goal goal { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int achieved { get; set; }
+        public long AchievementId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public int Achieved { get; set; }
+
+        public long GoalId { get; set; }
+
+        public Goal Goal { get; set; }
     }
 }

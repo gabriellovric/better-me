@@ -6,8 +6,12 @@ namespace BetterMeApi.Models
 {
     public class Progress
     {
-        public long id { get; set; }
-        public Assignment assignment { get; set; }
-        public DateTime date { get; set; }
+        public long ProgressId { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public long AssignmentId { get; set; }
+
+        public Assignment Assignment { get; set; }
     }
 }
