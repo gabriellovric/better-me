@@ -18,14 +18,16 @@ export enum Timeframe {
 
 export class Goal {
   goalId: number;
-  user: User;
   name: string;
   description: string;
   timeframe: Timeframe;
   repetitions: number;
+  userId: number;
+  user: User;
 
   constructor() {
     this.goalId = 0;
+    this.timeframe = 0;
   }
 }
 
@@ -57,10 +59,24 @@ export class GoalService {
       .toPromise();
   }
 
-  createGoal(user: Partial<Goal>): Promise<Goal> {
+  createGoal(goal: Partial<Goal>): Promise<Goal> {
     return this.http
-      .post(`${this.baseUrl}`, user, this.userStorageService.getAuthorizationRequestOptions())
+      .post(`${this.baseUrl}`, goal, this.userStorageService.getAuthorizationRequestOptions())
       .map(response => response.json() as Goal)
       .toPromise();
+  }
+
+  editGoal(goal: Goal): Promise<boolean> {
+    return this.http
+    .put(`${this.baseUrl}/${goal.goalId}`, goal, this.userStorageService.getAuthorizationRequestOptions())
+    .map(response => response.ok)
+    .toPromise();
+  }
+
+  deleteGoal(goalId: number): Promise<boolean> {
+    return this.http
+    .delete(`${this.baseUrl}/${goalId}`, this.userStorageService.getAuthorizationRequestOptions())
+    .map(response => response.ok)
+    .toPromise();
   }
 }

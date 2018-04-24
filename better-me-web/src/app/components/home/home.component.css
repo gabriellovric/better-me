@@ -1,0 +1,8 @@
+.scroll-container > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.scroll-container > .row > .col-sm-4 {
+  display: inline-block;
+  float: none;
+}

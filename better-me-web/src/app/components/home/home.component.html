@@ -1,5 +1,28 @@
-<h1>Wellcome to BetterMe {{ user.firstname }}</h1>
+<h1 class="mb-2">Wellcome to BetterMe</h1>
+<hr class="m-0" />
 
-<div class="row justify-content-center">
-    <button class="btn btn-lg btn-outline-primary" (click)="openGoalForm()">Create Goal</button>
+<h2 class="mt-4 mb-2">
+    My Goals
+    <button class="btn btn-link" (click)="openGoalForm()">
+        <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    </button>
+</h2>
+<div class="row" *ngIf="successMessage">
+    <ngb-alert class="w-100" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+</div>
+<div class="scroll-container">
+    <div class="row flex-nowrap">
+        <div class="col-4" *ngFor="let goal of myGoals">
+            <app-goal-detail [goal]="goal"></app-goal-detail>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-4 mb-2">My Assignments</h2>
+<div class="scroll-container">
+    <div class="row flex-nowrap">
+        <div class="col-4" *ngFor="let goal of myGoals">
+            <app-goal-detail [goal]="goal"></app-goal-detail>
+        </div>
+    </div>
 </div>

@@ -15,7 +15,6 @@ library.add(fas, far, fab);
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ExploreComponent } from './components/explore/explore.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -41,7 +40,6 @@ import { UserStorageService } from './services/user-storage.service';
     AppComponent,
     HomeComponent,
     ExploreComponent,
-    DashboardComponent,
     NavigationComponent,
     StatisticComponent,
     ProfileComponent,

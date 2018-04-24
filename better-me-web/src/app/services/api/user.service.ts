@@ -47,5 +47,4 @@ export class UserService {
       .map(response => response.json() as User)
       .toPromise();
   }
-
 }

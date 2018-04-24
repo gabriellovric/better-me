@@ -129,13 +129,17 @@ namespace BetterMeApi
 
             services.AddDbContext<BetterMeContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("BetterMeDatabase"));
+                //options.UseMySql(Configuration.GetConnectionString("BetterMeDatabase"));
+                options.UseInMemoryDatabase("BetterMeDatabase");
             });
             
             services.AddSingleton<SortedSet<string>, SortedSet<string>>();
             
             services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<GoalRepository, GoalRepository>();
+            services.AddScoped<AchievementRepository, AchievementRepository>();
+            services.AddScoped<AssignmentRepository, AssignmentRepository>();
+            services.AddScoped<ProgressRepository, ProgressRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -149,8 +153,8 @@ namespace BetterMeApi
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
 
-            dbContext.Database.Migrate();
-            dbContext.Database.EnsureCreated();
+            //dbContext.Database.Migrate();
+            //dbContext.Database.EnsureCreated();
 
             app.UseMiddleware<RegistrationMiddleware>();
 

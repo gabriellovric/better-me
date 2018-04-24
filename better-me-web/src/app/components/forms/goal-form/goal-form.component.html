@@ -9,29 +9,27 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="goal.name" name="name" #name="ngModel" />
+        <input type="text" class="form-control" id="name" placeholder="Name" required
+               [(ngModel)]="goal.name" name="name" #name="ngModel" />
         <div class="valid-feedback" [hidden]="name.valid || name.pristine">
           Please enter a name for the goal!
         </div>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-3">
         <label for="repetitions">Repetitions</label>
-        <input type="number" class="form-control" id="repetitions" required [(ngModel)]="goal.repetitions" name="repetitions" #repetitions="ngModel"
-        />
+        <input type="number" class="form-control" id="repetitions" placeholder="Repetitions" required
+               [(ngModel)]="goal.repetitions" name="repetitions" #repetitions="ngModel" />
         <div class="valid-feedback" [hidden]="repetitions.valid || repetitions.pristine">
           Please enter a valid amount of repetitions for the goal!
         </div>
       </div>
-      <div class="form-group col-md-4">
-        <label for="timeframe">Timeframe</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">times a</span>
-          </div>
-          <select class="form-control" id="timeframe" required [(ngModel)]="goal.timeframe" name="timeframe" #timeframe="ngModel">
-            <option *ngFor="let key of keys" [value]="key">{{ timeframes[key] | lowercase}}</option>
-          </select>
-        </div>
+      <div class="form-group col-md-3">
+        <label for="timeframe">Timeframe</label>        
+        <select class="form-control" id="timeframe" required
+                [(ngModel)]="goal.timeframe" name="timeframe" #timeframe="ngModel">
+          <option value="0">-- Timeframe --</option>
+          <option *ngFor="let key of keys" [value]="key">{{ timeframes[key] }}</option>
+        </select>
         <div class="valid-feedback" [hidden]="timeframe.valid || timeframe.pristine">
           Please enter a valid timeframe for the goal!
         </div>
@@ -44,25 +42,23 @@
         Please enter a valid timeframe for the goal!
       </div>
     </div>
-    <!--<div class="form-group">
+    <div class="form-group">
       <label for="description">Achievements</label>
     </div>
-
-
-    <ng-container *ngFor="let achievement of achievements" [achievement]="achievement">
+    <ng-container *ngFor="let achievement of achievements; let i = index">
       <div class="form-row">
         <div class="form-group col-md-3">
-          <input type="text" class="form-control" id="name" placeholder="Name" [(ngModel)]="achievement.name" name="name" #name="ngModel"/>
+          <input type="text" class="form-control" id="achievementName{{i}}" placeholder="Name" [(ngModel)]="achievement.name" name="achievementName{{i}}" #achievementName{{i}}="ngModel"/>
         </div>
-        <div class="form-group col-md-1">
-          <input type="number" class="form-control" id="achieved" placeholder="Achieved" />
+        <div class="form-group col-md-2">
+          <input type="number" class="form-control" id="achieved{{i}}" placeholder="Achieved" [(ngModel)]="achievement.achieved" name="achieved{{i}}" #achieved{{i}}="ngModel"/>
         </div>
-        <div class="form-group col-md-8">
-          <textarea class="form-control" id="description" rows="1" placeholder="Description"></textarea>
+        <div class="form-group col-md-7">
+          <textarea class="form-control" id="achievementDescription{{i}}" rows="1" placeholder="Description" [(ngModel)]="achievement.description" name="achievementDescription{{i}}" #achievementDescription{{i}}="ngModel"></textarea>
         </div>
       </div>
-    </ng-container>-->
-
+    </ng-container>
+    <button type="button" class="btn btn-primary" (click)="addAchievement()">Add Achievement</button>
     <button type="submit" class="btn btn-primary" [disabled]="!goalForm.form.valid">
       {{goal.goalId === 0 ? "Create" : "Save"}}
     </button>
