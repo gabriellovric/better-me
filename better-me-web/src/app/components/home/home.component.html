@@ -13,7 +13,7 @@
 <div class="scroll-container">
     <div class="row flex-nowrap">
         <div class="col-4" *ngFor="let goal of myGoals">
-            <app-goal-detail [goal]="goal"></app-goal-detail>
+            <app-goal-detail (assignmentChanged)="assignmentChanged($event)" [goal]="goal"></app-goal-detail>
         </div>
     </div>
 </div>
@@ -21,8 +21,8 @@
 <h2 class="mt-4 mb-2">My Assignments</h2>
 <div class="scroll-container">
     <div class="row flex-nowrap">
-        <div class="col-4" *ngFor="let goal of myGoals">
-            <app-goal-detail [goal]="goal"></app-goal-detail>
+        <div class="col-4" *ngFor="let assignment of myAssignments">
+            <app-assignment-detail (assignmentChanged)="assignmentChanged($event)" [assignment]="assignment"></app-assignment-detail>
         </div>
     </div>
 </div>

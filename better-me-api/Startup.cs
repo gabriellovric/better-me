@@ -39,57 +39,59 @@ namespace BetterMeApi
 
         public IConfiguration Configuration { get; }
 
-        
-        static async Task<Dictionary<string, RsaSecurityKey>> GetGoogleSigningKeys()
+        static async Task<String> GetGoogleJWKSUri()
         {
             string discoveryUri = "https://accounts.google.com/.well-known/openid-configuration";
-
+            
             using (var client = new HttpClient())
             {
-                using (var discoveryResponse = await client.GetAsync(discoveryUri))
+                using (var response = await client.GetAsync(discoveryUri))
                 {
-                    using (var discoveryContent = discoveryResponse.Content)
+                    using (var content = response.Content)
                     {
-                        var discoveryData = await discoveryContent.ReadAsStringAsync();
+                        var data = await content.ReadAsStringAsync();
 
-                        if (discoveryData != null)
-                        {
-                            var discoveryJson = JToken.Parse(discoveryData);
-                            var jwksUri = (string)discoveryJson["jwks_uri"];
-
-                            if (jwksUri != null)
-                            {
-                                using (var jwksResponse = await client.GetAsync(jwksUri))
-                                {
-                                    using (var jwksContent = jwksResponse.Content)
-                                    {
-                                        var jwksData = await jwksContent.ReadAsStringAsync();
-                                        if (jwksData != null)
-                                        {
-                                            var jwksJson = JToken.Parse(jwksData);
-
-                                            return jwksJson["keys"]
-                                                .Select(key => new
-                                                {
-                                                    kid = (string)key["kid"],
-                                                    n = WebEncoders.Base64UrlDecode((string)key["n"]),
-                                                    e = WebEncoders.Base64UrlDecode((string)key["e"])
-                                                })
-                                                .ToDictionary(key => key.kid, key => new RsaSecurityKey(new RSAParameters
-                                                {
-                                                    Exponent = key.e,
-                                                    Modulus = key.n
-                                                }));
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        return data != null ? (string)JToken.Parse(data)["jwks_uri"] : null;
                     }
                 }
             }
+        }
 
-            throw new ApplicationException("failed to receive google signing keys.");
+        static async Task<JToken> GetGoogleJWKS(string jwksUri)
+        {
+            using (var client = new HttpClient())
+            {
+                using (var response = await client.GetAsync(jwksUri))
+                {
+                    using (var content = response.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        
+                        return data != null ? JToken.Parse(data)["keys"] : null;
+                    }
+                }
+            }
+        }
+
+
+        static async Task<Dictionary<string, RsaSecurityKey>> GetGoogleSigningKeys()
+        {
+            var jwksUri = await GetGoogleJWKSUri();
+        
+            var jwks = await GetGoogleJWKS(jwksUri);
+            
+            return jwks
+                .Select(key => new
+                {
+                    kid = (string)key["kid"],
+                    n = WebEncoders.Base64UrlDecode((string)key["n"]),
+                    e = WebEncoders.Base64UrlDecode((string)key["e"])
+                })
+                .ToDictionary(key => key.kid, key => new RsaSecurityKey(new RSAParameters
+                {
+                    Exponent = key.e,
+                    Modulus = key.n
+                }));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

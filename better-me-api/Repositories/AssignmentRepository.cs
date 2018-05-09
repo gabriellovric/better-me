@@ -24,6 +24,11 @@ namespace BetterMeApi.Repositories
             return All.Where(item => item.UserId == userId);
         }
 
+        public IEnumerable<Assignment> AllByGoal(long goalId)
+        {
+            return All.Where(item => item.GoalId == goalId);
+        }
+
         public IEnumerable<Assignment> AllByUserEmail(string email)
         {
             return All.Where(item => item.User.Email == email);

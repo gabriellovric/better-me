@@ -16,7 +16,6 @@ import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { StatisticComponent } from './components/statistic/statistic.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +33,7 @@ import { ProgressService } from './services/api/progress.service';
 import { GoalFormComponent } from './components/forms/goal-form/goal-form.component';
 import { FormsModule } from '@angular/forms';
 import { UserStorageService } from './services/user-storage.service';
+import { AssignmentDetailComponent } from './components/assignment-detail/assignment-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,13 +41,13 @@ import { UserStorageService } from './services/user-storage.service';
     HomeComponent,
     ExploreComponent,
     NavigationComponent,
-    StatisticComponent,
     ProfileComponent,
     AuthCallbackComponent,
     LoginComponent,
     AuthComponent,
     GoalDetailComponent,
     GoalFormComponent,
+    AssignmentDetailComponent,
   ],
   imports: [
     HttpModule,

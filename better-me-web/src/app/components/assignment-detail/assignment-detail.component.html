@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body">
+    <button class="card-button-top btn btn-link" (click)="unassign()">
+      <fa-icon [icon]="['fas', 'times']"></fa-icon>
+    </button>
+
+    <h5 class="card-title">{{ assignment.goal.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      {{ assignment.goal.repetitions }} times a {{ timeframes[assignment.goal.timeframe] | lowercase }}
+    </h6>
+    <p class="card-text">{{ assignment.goal.description }}</p>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted">
+      Progress {{ progresses ? progresses.length : 0 }}/{{ assignment.goal.repetitions }}
+    </small>
+    <button class="card-button-bottom btn btn-link" (click)="increment()">
+      <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    </button>
+  </div>
+</div>

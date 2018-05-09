@@ -1,0 +1,21 @@
+.card-button-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-color: rgba(0,0,0,.125);
+    border-style: solid;
+    border-width: 0px 0px 1px 1px;
+    border-radius: 0px 0px 0px 10px!important;
+}
+
+.card-body,
+.card-footer {
+    position: relative;
+}
+
+.card-button-bottom {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}

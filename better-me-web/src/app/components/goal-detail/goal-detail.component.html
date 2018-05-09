@@ -16,8 +16,11 @@
         By {{ goal.user.firstname }} {{ goal.user.lastname }}
       </a>
     </small>
-    <button class="card-button-bottom btn btn-link" (click)="assignGoal()">
+    <button *ngIf="assignment == null" class="card-button-bottom btn btn-link" (click)="assignGoal()">
       <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    </button>
+    <button *ngIf="assignment != null" class="card-button-bottom btn btn-link" (click)="unassignGoal()">
+      <fa-icon [icon]="['fas', 'minus']"></fa-icon>
     </button>
   </div>
 </div>

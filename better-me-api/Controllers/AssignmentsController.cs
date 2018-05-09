@@ -30,16 +30,26 @@ namespace BetterMeApi.Controllers
         }
         
         [HttpGet]
-        public IActionResult Get([FromQuery(), RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")] string email)
+        public IActionResult Get([FromQuery]long? userId, [FromQuery]long? goalId)
         {
-            if (email != null)
+            if (userId != null)
             {
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
 
-                return Ok(_assignmentRepository.AllByUserEmail(email));
+                return Ok(_assignmentRepository.AllByUser(userId.Value));
+            }
+
+            if (goalId != null)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
+                }
+
+                return Ok(_assignmentRepository.AllByGoal(goalId.Value));
             }
 
             return Ok(_assignmentRepository.All);
@@ -68,13 +78,12 @@ namespace BetterMeApi.Controllers
                  || item.Goal != null
                  || item.GoalId == 0
                  || item.User != null
-                 || item.UserId != 0
-                 || item.Expiration <= DateTime.Now.Date)
+                 || item.UserId != 0)
                 {
                     return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
                 
-                if(_goalRepository.DoesItemExist(item.GoalId))
+                if(!_goalRepository.DoesItemExist(item.GoalId))
                 {
                     return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
@@ -113,8 +122,7 @@ namespace BetterMeApi.Controllers
                  || item.User != null
                  || item.Goal != null
                  || item.UserId != assignmentItem.UserId
-                 || item.GoalId != assignmentItem.GoalId
-                 || item.Expiration <= DateTime.Now.Date)
+                 || item.GoalId != assignmentItem.GoalId)
                 {
                     return BadRequest(ErrorCode.DataProvidedIsInvalid.ToString());
                 }
