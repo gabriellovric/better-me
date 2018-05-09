@@ -131,8 +131,8 @@ namespace BetterMeApi
 
             services.AddDbContext<BetterMeContext>(options =>
             {
-                //options.UseMySql(Configuration.GetConnectionString("BetterMeDatabase"));
-                options.UseInMemoryDatabase("BetterMeDatabase");
+                options.UseMySql(Configuration.GetConnectionString("BetterMeDatabase"));
+                //options.UseInMemoryDatabase("BetterMeDatabase");
             });
             
             services.AddSingleton<SortedSet<string>, SortedSet<string>>();
@@ -155,8 +155,8 @@ namespace BetterMeApi
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
 
-            //dbContext.Database.Migrate();
-            //dbContext.Database.EnsureCreated();
+            dbContext.Database.Migrate();
+            dbContext.Database.EnsureCreated();
 
             app.UseMiddleware<RegistrationMiddleware>();
 
