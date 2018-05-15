@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+/**
+ * Model Object für Goal
+ */
 namespace BetterMeApi.Models
 {
     public enum Timeframe

@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
+/**
+ * Model Object für Assignment
+ */
 namespace BetterMeApi.Models
 {
     public class Assignment

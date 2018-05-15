@@ -25,12 +25,18 @@ namespace BetterMeApi.Controllers
             _achievementRepository = achievementRepository;
         }
         
+        /**
+         * Liefert alle Achievements für ein Ziel eines Users mit userId zurück.
+         */
         [HttpGet]
         public IActionResult GetAll([FromQuery]long? userId, [FromQuery]long? goalId)
         {
             return Ok(_achievementRepository.AllWithQuery(userId, goalId));
         }
 
+        /**
+         * Liefert Achievement mit id zurück
+         */
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
@@ -42,7 +48,6 @@ namespace BetterMeApi.Controllers
             
             return Ok(achievementItem);
         }
-
         [HttpPost]
         public IActionResult Post([FromBody]Achievement item)
         {
@@ -74,6 +79,9 @@ namespace BetterMeApi.Controllers
             return Ok(item);
         }
 
+        /**
+         * Speichert Achievement
+         */
         [HttpPut("{id}")]
         public IActionResult Put(long id, [FromBody]Achievement item)
         {
@@ -110,6 +118,9 @@ namespace BetterMeApi.Controllers
             return NoContent();
         }
 
+        /**
+         * Löscht ein Achievement nach id
+         */
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {

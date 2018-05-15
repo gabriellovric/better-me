@@ -23,6 +23,9 @@ namespace BetterMeApi.Controllers
             _userRepository = userRepository;
         }
 
+        /**
+         * Liefer User mit E-Mail
+         */
         [HttpGet]
         public IActionResult Get([FromQuery(), RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")] string email)
         {
@@ -39,6 +42,9 @@ namespace BetterMeApi.Controllers
             return Ok(_userRepository.All);
         }
 
+        /**
+         * Liefert User nach ID
+         */
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {

@@ -17,6 +17,11 @@ public class RegistrationMiddleware
         _next = next ?? throw new ArgumentNullException(nameof(next));
     }
 
+    /**
+     * Überprüft, ob User bereits authentifiziert ist. Anschliessend wird überprüft, 
+     * ob der User bereits mit dieser E-Mail registriert ist. Falls er noch nicht registriert ist,
+     * wird ein neuer User angelegt.
+     */
     public async Task Invoke(HttpContext context)
     {
         if (context.User.Identity.IsAuthenticated)

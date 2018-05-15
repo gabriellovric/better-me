@@ -29,6 +29,9 @@ namespace BetterMeApi.Controllers
             _userRepository = userRepository;
         }
         
+        /**
+         * Liefert Assignments für User und Goal
+         */
         [HttpGet]
         public IActionResult Get([FromQuery]long? userId, [FromQuery]long? goalId)
         {
@@ -55,6 +58,9 @@ namespace BetterMeApi.Controllers
             return Ok(_assignmentRepository.All);
         }
 
+        /**
+         * Liefer ein spezifisches Assignment
+         */
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
@@ -67,6 +73,9 @@ namespace BetterMeApi.Controllers
             return Ok(assignmentItem);
         }
 
+        /**
+         * Speichert Assignment
+         */
         [HttpPost]
         public IActionResult Post([FromBody]Assignment item)
         {
@@ -106,6 +115,9 @@ namespace BetterMeApi.Controllers
             return Ok(item);
         }
 
+        /**
+         * Speichert Assignment
+         */
         [HttpPut("{id}")]
         public IActionResult Put(long id, [FromBody]Assignment item)
         {
@@ -142,6 +154,9 @@ namespace BetterMeApi.Controllers
             return NoContent();
         }
 
+        /**
+         * Löscht Assignment
+         */
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {

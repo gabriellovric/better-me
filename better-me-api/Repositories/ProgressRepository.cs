@@ -44,7 +44,7 @@ namespace BetterMeApi.Repositories
 
             return progresses;
         }
-
+        
         public bool DoesItemExist(long id)
         {
             return All.Any(item => item.ProgressId == id);

@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
+/**
+ * Model Object für Achievement
+ */
 namespace BetterMeApi.Models
 {
     public class Achievement

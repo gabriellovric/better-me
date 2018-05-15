@@ -24,6 +24,9 @@ namespace BetterMeApi.Controllers
             _userRepository = userRepository;
         }
         
+        /**
+         * Liefert Goal für User
+         */
         [HttpGet]
         public IActionResult Get([FromQuery]long? userId)
         {
@@ -35,6 +38,9 @@ namespace BetterMeApi.Controllers
             return Ok(_goalRepository.All);
         }
 
+        /**
+         * Liefert Goal mit ID
+         */
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
@@ -76,6 +82,9 @@ namespace BetterMeApi.Controllers
             return Ok(item);
         }
 
+        /**
+         * Speichert Goal
+         */
         [HttpPut("{id}")]
         public IActionResult Put([FromBody]Goal item)
         {
@@ -101,6 +110,9 @@ namespace BetterMeApi.Controllers
             return NoContent();
         }
 
+        /**
+         * Löscht ein spezifisches Goal
+         */
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {

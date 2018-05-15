@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
+/**
+ * Model Object für Progress
+ */
 namespace BetterMeApi.Models
 {
     public class Progress
